@@ -1,0 +1,197 @@
+<#
+
+Helpful notes from the presentation
+"Understanding the Pipeline - Get your one-liners to work!"
+    "It will always work -- if you know how"
+
+Jason Helmick
+Senior Technologiest - Concentrated Technologies
+
+
+###############################################################
+# First Problem - ByValue
+
+Get-Service | Stop-Service
+ Sending    |   Receiving
+
+1. What kind of object is sent across the pipeline
+        To Determine: Get-Service | gm
+        Answer: ServiceController
+
+2. Does the receiving cmdlet have any parameters that accept
+    pipeline input BYVALUE
+
+        To Determine: Get-Help Stop-Service -Full
+        Answer: Yes
+                -Name <String>
+                -InputObject <ServiceController>
+
+Solution: Because THe passed object is same type as -InputObject 
+            (ServiceController) The two cmdlets work together.
+
+####################################################################
+# Second Problem - ByPropertyName
+
+Get-Service | Stop-Process
+ Sending    |   Receiving
+
+1. What kind of object is sent across the pipeline?
+        To Determine: Get-Service | gm
+        Answer: ServiceController
+
+2. Does the receiving cmdlet have any parameters that accept
+    pipeline input BYVALUE?
+
+        To Determine: Get-Help Stop-Process -Full
+        Answer: Yes
+                -InputObject <Process>
+
+        *Note: Because the Passed object has a different type
+            (ServiceController) than -InputObject (process) There is 
+            no ByValue connection
+______________________________________________________
+
+3. What parameters of Stop-Process accept pipeline input ByPropertyName?
+
+        To Determine: Get-Help Stop-Process -Full
+        Answer: Yes            
+                -Name (Process name)
+                -ID (Process ID)
+
+4. Is there a property of the sending cmdlet that matches the parameter 
+    name of the receiving cmdlet?
+
+        To Determine: Get-Service | gm
+        Answer: Yes
+                Name
+
+
+Solution: Because THe passed object has a property with the same name (Name)
+             as the parameter (-Name) on the receiving cmdlet - this works.
+            
+
+####################################################################
+# Third Problem - ByPropertyName
+
+Get-ADComputer -Filter * | Get-Service -name bits
+        Sending          |        Receiving
+
+1. What kind of object is sent across the pipeline?
+        To Determine: Get-ADComputer -Filter * | gm
+        Answer: ADComputer
+
+2. Does the receiving cmdlet have any parameters that accept
+    pipeline input BYVALUE?
+
+        To Determine: Get-Help Get-Service -Full
+        Answer: Yes
+                -InputObject <ServiceController>
+
+        Note: Because the Passed object has a different type
+            (ADComputer) than -InputObject (ServiceController) There is 
+            no ByValue connection
+______________________________________________________
+
+3. What parameters of Get-Service accept pipeline input ByPropertyName?
+
+        To Determine: Get-Help Get-Service -Full
+        Answer: Yes            
+                -Name (Service name)
+                -ComputerName (ComputerName)
+
+4. Is there a property of the sending cmdlet that matches the parameter 
+    name of the receiving cmdlet?
+
+        To Determine: Get-ADComputer -Filter * | gm 
+        Answer: Yes - But its the wrong one we want - it matches to -Name.
+                Name (Computer names)
+
+        Note: Because the Passed object has a different property name (Name)
+            than the desired parameter on the receiving cmdlet (-ComputerName)
+            this doesn't work as we expect.
+            
+
+Solution: To match the property (Name) to the parameter (-ComputerNAme) create
+            your own custom property in-flight using the Select-Object cmdlet.
+
+ Get-Adcomputer -filter * | Select-Object -Property @{n='ComputerName';e={$_.name}} | 
+ Get-Service -name bits
+            
+
+####################################################################
+# Fourth Problem - The parenthetical
+
+Get-Adcomputer -filter * | Get-WmiObject -Class win32_bios
+        Sending          |        Receiving
+
+1. What kind of object is sent accross the pipeline?
+        To Determine: Get-ADComputer -Filter * | gm
+        Answer: ADComputer
+
+2. Does the receiving cmldet have any parameters that accept
+    pipeline input BYVALUE or ByPropertyName
+
+        To Determine: Get-Help Get-WmiObject -Full
+        Answer: NO!
+
+        Note: This cmdlet does not except ANY pipeline input, so
+                a new tactic to solving the problem must be used.
+                
+Solution:The cmdlet Get-WmiObject supports -ComputerName with an argument of 
+            object type <String[]>. You need to fill this argument with the data, but it must 
+            be of type <String>.
+            
+            
+Example:
+   
+        1. Get-Adcomputer -filter * | Select-Object -Property name | gm
+        # Not type string - won't work
+        
+        2. Get-Adcomputer -filter * | Select-Object -ExpandProperty name | gm
+        # -ExpandProperty - This makes the type <string> - This will work.
+
+Get-WmiObject -Class win32_bios -ComputerName (Get-Adcomputer -filter * | Select-Object -ExpandProperty name)
+ 
+ ###################################################################################
+ 
+ Resources:
+ 
+    For more help on working with the pipeline, see the book
+    "Learn Windows PowerShell in a Month of Lunches" - chapter 9
+    Or go to http://www.PowerShell.Org and post a question in the forums.        
+
+    
+#>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
