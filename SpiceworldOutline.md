@@ -7,12 +7,19 @@
   - Management and Automation at scale
   - Sacred promise
   - Optimizing the user, not the product. (empowering you)
-- Don't fear the Shell...... (JASON/Sydney)
-- TODO: Jason;s old routine
-  - Native commands
+- Don't fear the Shell
+  - Win:ps7 - native commands
+    - Dir/ Cls, HELP, notepad, calc
+    - Ls, MAN  -- need help have to call a man
+    - How?  Aliases -- 
+    - Why?
+  - Mac:ps7 - native commands
+    - ls -- but still has Dir
   - Cmdlet - Verb-Noun
-  - Aliases - shortcuts
-  - Scripts
+    - Get-PRocess Get-Service
+    - mac: Get-Process -- no Get-Service - cause they aint got those -- windows
+  - Aliases - Get-Alias -- GAL -- I love powershell - Man and GAL!
+  - Scripts - notepad .\runme.ps1  (Get-service -name bits)
 
 ## Getting Started (Jason/Jeff/Sean - Docs)
 
@@ -25,7 +32,7 @@
   - Launch Console - just Show
   - Launch on Mac - preferred
   - Launch in Terminal - preferred
-    - Brief: Multi versions - CloudShell - WSL
+    - Brief: Multi versions - CloudShell
 
 ## The Help System (Jason/Sydney)
 
@@ -46,12 +53,13 @@
 - Understanding Syntax
   - Parameter Sets
   - What does all this syntax mean?
+    - Get-hellp Get-Service 
+    - Get-Help Get-Process then Stop-Process
 - Real-world
   - Examples of discovering and solving
     - Get-Service -Name bits
     - Stop-Service
     - Start-service
-    - Get-AdComputer
 
 ## The Pipeline: Connecting commands (Jeff)
 
@@ -118,8 +126,8 @@ TODO: Update WMI examples to use CimCmdlets
 - Custom Properties
   - Examples
     - Get-Service | Select-Object -Property Name, status , @{n='MyState';e={$_.Status}}
-    - Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='c:'" | Select-Object -Property Freespace
-    - Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='c:'" | Select-Object -Property @{n='FreeGB';e={$_.Freespace /1GB as [int]}}
+    - Get-CimInstance -ClassName win32_logicalDisk -filter "DeviceID='C:'" | Select-Object
+      -Property @{n='FreeGB';e={$_.Freespace /1GB -as [int]}}
 - Filtering data
   - Comparison operators
     - Examples
@@ -135,23 +143,6 @@ TODO: Update WMI examples to use CimCmdlets
     - Get-Service -Name bits | Foreach{$_.stop()}
     - $var=Get-Service bits #Vars in more detail later
     - $var.Start()
-
-<!--
-(REMOVE) - The pipeline: Deeper
-
-- How the pipeline really works
-- 4 Step solution
-- 1- ByValue
-  - Example - Get-Service | Stop-Service
-- 2 - ByPropertyName
-  - Example - Get-Service | Stop-Process
-- 3- What if my property doesn't match
-  - Custom property
-  - Example:
-    - Get-Adcomputer -Filter - | Select -ExpandProperty | Get-Service
-- 4- Parenthetical - when all else fails
-  - Example - Get-WmiObject -ComputerName ()
--->
 
 ## Overview of Docs (Sean)
 
