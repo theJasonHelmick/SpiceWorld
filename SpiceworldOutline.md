@@ -1,56 +1,12 @@
 # Beginning PowerShell Workshop
 
-## Abstract & notes
-
-TODO:  Demo Machine notes:
-
-- Replace demos with current 2022
-- Install
-  - WSL (For terminal demo) (install pwsh into wsl)
-  - CloudShell account (terminal demo)
-  - Domain controller (AD) with users for demos
-  - Remoting (SSH/WinRM)
-
-Make sure these are covered:  (From meeting with everyone)
-
-1. How to get Powershell on your system
-1. How to discover commands and modules with commands.
-1. How to setup remoting with SSH
-1. How to get ready to script
-1. How to get Help
-1. How to output results
-1. How to pipeline commands
-1. How to manage at scale
-   - Getting remote information (CIM)
-   - Running remote scripts
-   - Bastion (cut)
-1. How to stay up-to-date with current PowerShell events.
-1. How to contribute to the community - that is contributing to you.
-
-Plus include this:
-
-Optimizing Shell Experience.... (Sydney/Jason)
-
-- Predictors
-  - SecretManagement
-  - Crescendo - No, Just concept if asked.
-- PSGet V2/v3 ??
-
-- DSC - No, just concept if asked.
-- SSH - already in remoting section
-- AD - already in demo (user accounts)
-- InTune - nothing planned
-- Office 365 - 5-10 demo's for content.
-
 ## Introduction
 
 - Introduce the team
-- Why PowerShell Matters (Sydney)
+- Why PowerShell Matters 
   - Management and Automation at scale
   - Sacred promise
   - Optimizing the user, not the product. (empowering you)
-  - Historical usage stat numbers --
-    - could we do this for 15 years? or an estimate...... recent growth good enough.
 - Don't fear the Shell...... (JASON/Sydney)
 - TODO: Jason;s old routine
   - Native commands
