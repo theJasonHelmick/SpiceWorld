@@ -1,1 +1,0 @@
-Get-service -name bits
