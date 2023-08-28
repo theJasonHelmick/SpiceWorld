@@ -58,13 +58,16 @@
   - VS Code
   - Cloud Shell
 
-- Creating simple batch-oriented scripts - Jeff
-  - Using VS Code & PS Extension
-  - Using variables
+- Scripting Basics - Jeff
+  - What is a PowerShell script
   - Execution policy & unblock (mark of the web for Windows and macOS)
+  - Using variables
+  - Using VS Code & PS Extension
 
 - PowerShell remoting for scale-out - Jeff
   - What is it?
+  - Alternate credentials
+  - Using Invoke-Command
 
 ## Intelligent shell - Jason/Sean - 30 min
 
