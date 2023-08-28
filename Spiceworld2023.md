@@ -51,7 +51,7 @@
     - https://aka.ms/psdiscord
 - PowerShell blogs
 
-## Interactive vs. Automation - 30 min - 
+## Interactive vs. Automation - 30 min -
 
 - Other hosts - Jason
   - Windows Terminal vs. Conhost
@@ -77,7 +77,10 @@
   - Configuring PSReadLine
   - Come to Sean's session for profiles
 
-## Advanced features - Jeff - land us - 30 min
+## Automating with PowerShell - Jeff - land us - 30 min
 
-- Using alternate credentials
-- Jeff's AD examples and using PSDrives
+- Console first
+- Creating a basic script
+- Script to basic function
+- Basic function to advanced function
+- Function to module
