@@ -1,6 +1,6 @@
 # Be immediately effective in PowerShell
 
-## Base don timing plan - you have 15 minutes of padding
+## Based on timing plan - you have 15 minutes of padding
 
 ## Don't fear the shell - Jason (Intros + Don't Fear - 20 min)
 
@@ -51,7 +51,7 @@
     - https://aka.ms/psdiscord
 - PowerShell blogs
 
-## Interactive vs. Automation - 30 min
+## Interactive vs. Automation - 30 min - 
 
 - Other hosts - Jason
   - Windows Terminal vs. Conhost
